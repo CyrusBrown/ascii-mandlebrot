@@ -86,6 +86,13 @@ fn main() {
     let move_amount = 0.1;
 
     loop {
+
+        let settings = MandleSettings { size_x, size_y, scale_x, scale_y, max_iterations, offset };
+        print!("\x1B[2J\x1B[1;1H");
+        stdout().flush().expect("Failed to flush stdout");
+
+        graph_mandle(settings);
+
         let mut user_input = String::new();
         io::stdin()
         .read_line(&mut user_input)
@@ -116,12 +123,6 @@ fn main() {
         if max_iterations < 1 {
             max_iterations = 1;
         }
-
-        let settings = MandleSettings { size_x, size_y, scale_x, scale_y, max_iterations, offset };
-        print!("\x1B[2J\x1B[1;1H");
-        stdout().flush().expect("Failed to flush stdout");
-
-        graph_mandle(settings);
 
 
     }
