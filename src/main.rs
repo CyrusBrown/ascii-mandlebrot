@@ -2,23 +2,6 @@
 use std::io;
 use std::io::{stdout, Write};
 
-
-#[derive(Debug)]
-#[derive(Default)]
-struct Point {
-    x: f32, 
-    y: f32,
-}
-
-// impl Point {
-
-//     fn add(p1: Point, p2: Point) -> Point {
-//         let Point { x: x1, y: y1 } = p1;
-//         let Point { x: x2, y: y2 } = p2;
-//         Point { x: x1 + x2, y: y1 + y2}
-//     }
-// }
-
 #[derive(Debug, Copy, Clone)]
 struct Complex {
     x: f64,
@@ -35,11 +18,6 @@ impl Complex {
 
     fn add(p1: &Complex, p2: &Complex) -> Complex {
         Complex { x: p1.x + p2.x, y: p1.y + p2.y}
-    }
-
-    fn from_point(p: &Point) -> Complex {
-        let Point { x, y} = p;
-        Complex { x: *x as f64, y: *y as f64}
     }
 
     fn abs(&self) -> f64 {
@@ -107,7 +85,7 @@ fn main() {
 
     let move_amount = 0.1;
 
-    while true {
+    loop {
         let mut user_input = String::new();
         io::stdin()
         .read_line(&mut user_input)
