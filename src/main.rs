@@ -54,6 +54,7 @@ fn graph_mandle(settings: MandleSettings) {
 
     let MandleSettings { size_x, size_y, scale_x, scale_y, max_iterations, offset } = settings;
 
+    let mut image = String::new();
     for a_y in -size_y..size_y {
         for a_x in -size_x..size_x {
             let z_num = Complex { x: ((a_x as f64 / size_x as f64) - offset.x ) * scale_x, 
@@ -61,15 +62,26 @@ fn graph_mandle(settings: MandleSettings) {
             let escape_time = mandlebrot(max_iterations, &z_num, &z_num);
 
             if escape_time > max_iterations - 1 {
-                print!("1");
+                image.push('█');
+            }
+            else if escape_time > ( 3 * max_iterations / 4) {
+                image.push('▓');
+            }
+            else if escape_time > ( 2 * max_iterations / 4) {
+                image.push('▒');
+            }
+            else if escape_time > ( max_iterations / 4) {
+                image.push('░');
             }
             else {
-                print!(" ");
+                image.push(' ');
             }
         }
-        print!("\n")
+        image.push('\n')
         
     }
+
+    print!("{}", image);
 
 }
 
@@ -89,7 +101,7 @@ fn main() {
 
         let settings = MandleSettings { size_x, size_y, scale_x, scale_y, max_iterations, offset };
         print!("\x1B[2J\x1B[1;1H");
-        stdout().flush().expect("Failed to flush stdout");
+        // stdout().flush().expect("Failed to flush stdout");
 
         graph_mandle(settings);
 
